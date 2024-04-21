@@ -30,8 +30,8 @@ def read_text_file(file_path):
 
 
 with st.sidebar:
-    selected = option_menu("Índice", ["Inicio","Ingeniería en Prompt", 'Marca Personal','Narrativa de Datos','Piensa Creativo','Estrategia Negocio','Gestión de Proyectos','Lenguaje Natural','Aprendizaje Continuo','Limitaciones','Conclusión','Asistente'], 
-        icons=['caret-right', 'caret-right','caret-right','caret-right','caret-right','caret-right','caret-right','caret-right','caret-right','caret-right','caret-right','bi-robot'], default_index=0)
+    selected = option_menu("Índice", ["Inicio","Ingeniería en Prompt", 'Marca Personal','Narrativa de Datos','Piensa Creativo','Estrategia Negocio','Gestión de Proyectos','Lenguaje Natural','Aprendizaje Continuo','Limitaciones','Conclusión','Asistente','Arbol de Conceptos'], 
+        icons=['caret-right', 'caret-right','caret-right','caret-right','caret-right','caret-right','caret-right','caret-right','caret-right','caret-right','caret-right','bi-robot','ui-checks'], default_index=0)
 
 
 fileaudio = selected + ".mp3"
@@ -52,9 +52,8 @@ if os.path.exists(file):
     # Leer el contenido del archivo
     with open(file, 'r', encoding='utf-8') as file_handle:
         texto = file_handle.read()
-
         with st.expander("TL;DR"):
-            st.caption(texto)
+            st.write("*"+texto+"*")
 
 
 
@@ -65,8 +64,6 @@ if os.path.exists(file):
     # Leer el contenido del archivo
     with open(file, 'r', encoding='utf-8') as file_handle:
         texto = file_handle.read()
-
-    # Mostrar el contenido del archivo en la interfaz
     st.markdown(texto)
 
 
@@ -87,6 +84,7 @@ if not os.path.exists(archivo_salida):
                 # Abrir el archivo y leer su contenido
                 with open(archivo, 'r', encoding='utf-8') as file_in:
                     contenido = file_in.read()
+                    print(archivo)
                     file_out.write(contenido + "\n")  # Escribir el contenido en el archivo de salida
 
 
@@ -142,6 +140,112 @@ if selected == "Asistente":
 
 
 
-#if selected == "FAQ":
-#    st.write("Pronto Disponible ...")
+if selected == "Arbol de Conceptos":
 
+
+    #if selected == "FAQ":
+    #    st.write("Pronto Disponible ...")
+    from streamlit_tree_select import tree_select
+
+    st.title("🌳 Árbol de Conceptos")
+    st.subheader("Deja que la IA conecte los conceptos")
+
+    # Create nodes to display
+    nodes = [
+        {
+            "label": "Ingeniería en Prompt",
+            "value": "ingenieria_prompt",
+            "children": [
+                {"label": "Fundamentos de la Comunicación con la IA", "value": "fundamentos_comunicacion"},
+                {"label": "Desarrollo de Prompts Efectivos", "value": "desarrollo_prompts"},
+                {"label": "Habilidades Requeridas", "value": "habilidades_requeridas"}
+            ]
+        },
+        {
+            "label": "Marca Personal Potenciada por IA",
+            "value": "marca_personal",
+            "children": [
+                {"label": "Elementos Visuales", "value": "elementos_visuales"},
+                {"label": "Contenido Digital", "value": "contenido_digital"},
+                {"label": "Interacción y Redes Sociales", "value": "interaccion_redes"},
+                {"label": "Análisis y Mejora", "value": "analisis_mejora"}
+            ]
+        },
+        {
+            "label": "Pensamiento Creativo",
+            "value": "pensamiento_creativo",
+            "children": [
+                {"label": "Arte y Música", "value": "arte_musica"},
+                {"label": "Literatura y Diseño", "value": "literatura_diseno"},
+                {"label": "Aplicaciones Profesionales", "value": "aplicaciones_profesionales"}
+            ]
+        },
+        {
+            "label": "Estrategia",
+            "value": "estrategia",
+            "children": [
+                {"label": "Implementación de Negocios con IA", "value": "implementacion_negocios"},
+                {"label": "Gestión de Riesgos", "value": "gestion_riesgos"}
+            ]
+        },
+        {
+            "label": "Gestión de Proyectos IA",
+            "value": "gestion_proyectos",
+            "children": [
+                {"label": "Coordinación de Equipos", "value": "coordinacion_equipos"},
+                {"label": "Visión de Implementación", "value": "vision_implementacion"},
+                {"label": "Agilidad Organizacional", "value": "agilidad_organizacional"}
+            ]
+        },
+        {
+            "label": "Procesamiento del Lenguaje Natural (NLP)",
+            "value": "procesamiento_lenguaje_natural",
+            "children": [
+                {"label": "Interacción Humano-Máquina", "value": "interaccion_humano_maquina"},
+                {"label": "Aplicaciones en Diferentes Sectores", "value": "aplicaciones_sectores"},
+                {"label": "Innovaciones en Creatividad", "value": "innovaciones_creatividad"}
+            ]
+        },
+        {
+            "label": "Curiosidad y Aprendizaje Continuo",
+            "value": "curiosidad_aprendizaje",
+            "children": [
+                {"label": "Exploración de Nuevos Territorios", "value": "exploracion_territorios"},
+                {"label": "Combinación de Conocimientos", "value": "combinacion_conocimientos"},
+                {"label": "Comunidad y Colaboración", "value": "comunidad_colaboracion"}
+            ]
+        },
+        {
+            "label": "Entendiendo las Limitaciones de la IA",
+            "value": "limitaciones_ia",
+            "children": [
+                {"label": "Realismo en Expectativas", "value": "realismo_expectativas"},
+                {"label": "Ética y Sesgos", "value": "etica_sesgos"},
+                {"label": "Colaboración Humano-IA", "value": "colaboracion_humano_ia"}
+            ]
+        }
+    ]
+
+
+
+
+    
+
+
+    col1, col2 = st.columns([1, 2])
+
+    with col1:
+        return_select = tree_select(nodes)
+        # st.write(return_select)
+        textos = str(return_select)
+
+    with col2:
+        if st.button("Analizar Conceptos Seleccionados"):
+           # st.write(textos)
+            prompt_sistema = "Considera el siguente contenidos para que tengas el contexto de lo que debes responder: "+texto_archivo_salida
+            prompt_usuario = "Crea un articulo para un blog que permita dar claridad de la relación pero solo entre los conceptos cuya key = 'checked'"
+            prompt_usuario += "No consideres para el articulo los conceptos key = 'expanded'"
+            prompt_usuario += "Busca en este JSON los conceptos "+textos
+            print("===")
+            print(prompt_sistema + prompt_usuario)
+            stream_to_app(prompt_sistema,prompt_usuario)
