@@ -46,6 +46,19 @@ if os.path.exists(fileaudio):
 
 
 
+file = selected + ".tldr"
+# Validar si el archivo existe
+if os.path.exists(file):
+    # Leer el contenido del archivo
+    with open(file, 'r', encoding='utf-8') as file_handle:
+        texto = file_handle.read()
+
+        with st.expander("TL;DR"):
+            st.caption(texto)
+
+
+
+
 file = selected + ".txt"
 # Validar si el archivo existe
 if os.path.exists(file):
@@ -54,7 +67,7 @@ if os.path.exists(file):
         texto = file_handle.read()
 
     # Mostrar el contenido del archivo en la interfaz
-    st.write(texto)
+    st.markdown(texto)
 
 
 
@@ -131,9 +144,4 @@ if selected == "Asistente":
 
 #if selected == "FAQ":
 #    st.write("Pronto Disponible ...")
-
-
-
-
-
 
