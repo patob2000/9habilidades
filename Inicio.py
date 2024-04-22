@@ -84,7 +84,7 @@ if not os.path.exists(archivo_salida):
                 # Abrir el archivo y leer su contenido
                 with open(archivo, 'r', encoding='utf-8') as file_in:
                     contenido = file_in.read()
-                    print(archivo)
+                    # print(archivo)
                     file_out.write(contenido + "\n")  # Escribir el contenido en el archivo de salida
 
 
@@ -103,7 +103,7 @@ def anthropic_stream(system, user_input):
     with client.messages.stream(
         max_tokens=4096,
         messages=[{"role": "user", "content": prompt_final}],
-        model="claude-3-haiku-20240307",
+        model="claude-3-sonnet-20240229",
     ) as stream:
         # Itera sobre cada texto que llega del stream
         for text in stream.text_stream:
@@ -227,11 +227,6 @@ if selected == "Arbol de Conceptos":
     ]
 
 
-
-
-    
-
-
     col1, col2 = st.columns([1, 2])
 
     with col1:
@@ -242,10 +237,12 @@ if selected == "Arbol de Conceptos":
     with col2:
         if st.button("Analizar Conceptos Seleccionados"):
            # st.write(textos)
-            prompt_sistema = "Considera el siguente contenidos para que tengas el contexto de lo que debes responder: "+texto_archivo_salida
-            prompt_usuario = "Crea un articulo para un blog que permita dar claridad de la relación pero solo entre los conceptos cuya key = 'checked'"
-            prompt_usuario += "No consideres para el articulo los conceptos key = 'expanded'"
-            prompt_usuario += "Busca en este JSON los conceptos "+textos
-            print("===")
-            print(prompt_sistema + prompt_usuario)
-            stream_to_app(prompt_sistema,prompt_usuario)
+            prompt_sistema = "Considera el siguiente contenidos para que tengas el contexto de lo que debes responder: "+texto_archivo_salida
+            prompt_usuario = "Crea un contenido estilo articulo de blog que permita dar claridad de la relación existente entre los conceptos cuya key = 'checked'. Presentalo a travá de algo práctico y aplicable"
+            prompt_usuario += "No consideres para el contenido los conceptos key = 'expanded'."
+            prompt_usuario += "Responde en formato markdown."
+            prompt_usuario += "Busca en este JSON los conceptos 'checked'"+textos
+            resp_arb = stream_to_app(prompt_sistema,prompt_usuario)
+        else:
+            if 'respuesta' in st.session_state:
+                st.write(st.session_state['respuesta'])
