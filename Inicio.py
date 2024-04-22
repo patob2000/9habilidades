@@ -114,15 +114,11 @@ def stream_to_app(system, user_input):
     # Función que pasa el generador a Streamlit para mostrar en la aplicación
     st.write_stream(anthropic_stream(system, user_input))
 
+
+
 # Asegurarse de que texto_archivo_salida tiene contenido válido
 prompt_system = f"""Utiliza el siguiente contenido para fundamentar y apoyar tus respuestas:
 {texto_archivo_salida}"""  
-
-
-
-
-
-
 if selected == "Asistente":
     if 'respuesta' not in st.session_state:
         st.session_state['respuesta'] = ''
@@ -238,7 +234,7 @@ if selected == "Arbol de Conceptos":
         if st.button("Analizar Conceptos Seleccionados"):
            # st.write(textos)
             prompt_sistema = "Considera el siguiente contenidos para que tengas el contexto de lo que debes responder: "+texto_archivo_salida
-            prompt_usuario = "Crea un contenido estilo articulo de blog que permita dar claridad de la relación existente entre los conceptos cuya key = 'checked'. Presentalo a travá de algo práctico y aplicable"
+            prompt_usuario = "Crea un contenido estilo articulo de blog que permita dar claridad de la relación existente entre los conceptos cuya key = 'checked'."
             prompt_usuario += "No consideres para el contenido los conceptos key = 'expanded'."
             prompt_usuario += "Responde en formato markdown."
             prompt_usuario += "Busca en este JSON los conceptos 'checked'"+textos
